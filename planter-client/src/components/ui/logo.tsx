@@ -1,11 +1,11 @@
-import { css } from "@emotion/react"
-import { Link } from "react-router-dom"
-import logoImg from "../../assets/images/logo.svg"
-import palette from "../../lib/styles/constants/palette"
+import { css } from "@emotion/react";
+import { Link } from "react-router-dom";
+import logoImg from "../../assets/images/logo.svg";
+import palette from "../../lib/styles/constants/palette";
 
 type LogoProps = {
-  size?: string
-}
+  size?: string;
+};
 
 const Logo = (_: LogoProps) => {
   return (
@@ -14,8 +14,8 @@ const Logo = (_: LogoProps) => {
         <img src={logoImg} alt="planter" />
       </Link>
     </div>
-  )
-}
+  );
+};
 
 const logo = css`
   display: flex;
@@ -28,7 +28,7 @@ const logo = css`
   transition: background-color 200ms ease-in-out;
 
   :hover {
-    background-color: ${palette.brandThemeOpacity};
+    background-color: ${palette.opacity.brand};
   }
 
   img {
@@ -39,6 +39,6 @@ const logo = css`
     height: 100%;
     object-fit: cover;
   }
-`
+`;
 
-export default Logo
+export default Logo;
