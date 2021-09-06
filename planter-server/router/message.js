@@ -9,7 +9,7 @@ let messages = [
     user: {
       name: "anna",
       nickname: "anna",
-      url: "https://widgetwhats.com/app/uploads/2019/11/free-profile-photo-whatsapp-1.png",
+      url: "https://abs.twimg.com/sticky/default_profile_images/default_profile_reasonably_small.png",
     },
   },
   {
@@ -19,7 +19,7 @@ let messages = [
     user: {
       name: "bob",
       nickname: "bob",
-      url: "https://widgetwhats.com/app/uploads/2019/11/free-profile-photo-whatsapp-1.png",
+      url: "https://abs.twimg.com/sticky/default_profile_images/default_profile_reasonably_small.png",
     },
   },
 ]
