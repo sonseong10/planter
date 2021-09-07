@@ -40,10 +40,13 @@ export default class MessageService implements MessageCRUD {
     const response = await fetch(`${this.baseURL}/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text, username: "anna", name: "anna" }),
+      body: JSON.stringify({
+        text,
+        user: { name: "anna", nickname: "anna" },
+      }),
     });
     const data = await response.json();
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       throw new Error(data.error);
     }
     return data;
