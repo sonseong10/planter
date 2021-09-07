@@ -41,7 +41,11 @@ const AllMessages = ({ messageService }: AllMessagesProps) => {
   return (
     <>
       <SectionHeader title={"Home"} icon={"sorte"} />
-      <MessageForm onCreated={onCreated} />
+      <MessageForm
+        messageService={messageService}
+        onCreated={onCreated}
+        onError={error}
+      />
       <Messages
         username={username}
         messages={messages}

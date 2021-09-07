@@ -1,49 +1,54 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/react";
 import { resetButton } from "../../lib/styles/components/reset-button";
-import { Message } from "../../service/message";
+import { MessageCRUD } from "../../service/message";
 import palette from "../../lib/styles/constants/palette";
 
 type MessageFormProps = {
-  onCreated: (message: Message) => void;
+  messageService: MessageCRUD;
+  onCreated: (message: any) => void;
+  onError: any;
 };
 
-const MessageForm = ({ onCreated }: MessageFormProps) => {
-  const messageRef = useRef<HTMLTextAreaElement>(null);
-  const [writed, setWrited] = useState<boolean>(false);
+const MessageForm = ({
+  onCreated,
+  messageService,
+  onError,
+}: MessageFormProps) => {
+  const [msgValue, setMsgValue] = useState("");
 
   const submitValidat = (e: React.FormEvent) => {
     e.preventDefault();
-    if (messageRef.current?.value !== null) {
-      onCreated({
-        uid: 3,
-        createdAt: Date.now().toString(),
-        text: messageRef.current?.value! as string,
-        user: {
-          name: "ellie",
-          nickname: "ellie",
-        },
-      });
+    if (msgValue == null) {
+      return;
+    } else {
+      messageService
+        .postMessage(msgValue)
+        .then((message) => {
+          setMsgValue("");
+          onCreated(message);
+        })
+        .catch(onError);
     }
   };
 
-  const onInputChange = (): void => {
-    messageRef.current?.value === "" ? setWrited(false) : setWrited(true);
+  const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setMsgValue(e.target.value);
   };
 
   return (
     <form css={messageForm} onSubmit={submitValidat}>
       <div css={textareaWrapper}>
         <textarea
-          ref={messageRef}
           id="msgInput"
+          value={msgValue}
           onChange={onInputChange}
         ></textarea>
-        {!writed && <label htmlFor="msgInput">What's happening?</label>}
+        {!msgValue && <label htmlFor="msgInput">What's happening?</label>}
       </div>
 
       <div css={buttonWrapper}>
-        <button css={submitBtn} type="submit" disabled={!writed}>
+        <button css={submitBtn} type="submit" disabled={!msgValue}>
           Plant
         </button>
       </div>
