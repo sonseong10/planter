@@ -42,7 +42,11 @@ export default class MessageService implements MessageCRUD {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         text,
-        user: { name: "anna", nickname: "anna" },
+        user: {
+          name: "anna",
+          nickname: "anna",
+          url: "",
+        },
       }),
     });
     const data = await response.json();
