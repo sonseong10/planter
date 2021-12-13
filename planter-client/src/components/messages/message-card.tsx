@@ -52,7 +52,7 @@ const MessageCard = ({
       {owner && (
         <div css={messageAction}>
           <button onClick={() => onDelete(message.uid)}>x</button>
-          <button onClick={() => setEditing(true)}>✎</button>
+          <button onClick={() => setEditing(!editing)}>✎</button>
         </div>
       )}
     </li>
