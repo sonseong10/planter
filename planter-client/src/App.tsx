@@ -1,3 +1,4 @@
+import React from "react"
 import { Global, css } from "@emotion/react"
 import Layout from "./components/layout"
 import SideBar from "./components/sidebar/side-bar"

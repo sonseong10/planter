@@ -7,12 +7,12 @@ import palette from "../../lib/styles/constants/palette";
 type MessageFormProps = {
   messageService: MessageCRUD;
   onCreated: (message: any) => void;
-  onError: any;
+  onError: (error: string) => void;
 };
 
 const MessageForm = ({
-  onCreated,
   messageService,
+  onCreated,
   onError,
 }: MessageFormProps) => {
   const [msgValue, setMsgValue] = useState("");
@@ -24,9 +24,9 @@ const MessageForm = ({
     } else {
       messageService
         .postMessage(msgValue)
-        .then((message) => {
+        .then((created) => {
           setMsgValue("");
-          onCreated(message);
+          onCreated(created);
         })
         .catch(onError);
     }
@@ -99,12 +99,13 @@ const submitBtn = css`
   ${resetButton}
   height: 36px;
   padding: 0 16px;
-  border-radius: 18px;
   background-color: ${palette.brandTheme.base};
   font-size: 15px;
   line-height: 20px;
   font-weight: 700;
   color: ${palette.white};
+  border-radius: 18px;
+  transition: background-color 300ms ease-in-out, opacity 300ms ease-in-out;
 
   &:hover:enabled {
     background-color: ${palette.brandTheme.dark};

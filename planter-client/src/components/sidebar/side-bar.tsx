@@ -1,8 +1,8 @@
-import { css } from "@emotion/react"
-import media from "../../lib/styles/constants/media"
-import Logo from "../ui/logo"
+import { css } from "@emotion/react";
+import media from "../../lib/styles/constants/media";
+import Logo from "../ui/logo";
 
-type SideBarProps = {}
+type SideBarProps = {};
 
 const SideBar = (_: SideBarProps) => {
   return (
@@ -11,8 +11,8 @@ const SideBar = (_: SideBarProps) => {
 
       <ul css={menuStyle}></ul>
     </div>
-  )
-}
+  );
+};
 
 const sideBarStyle = css`
   flex: 1;
@@ -22,7 +22,7 @@ const sideBarStyle = css`
   ${media.xlarge} {
     display: none;
   }
-`
+`;
 
 const menuStyle = css`
   list-style: none;
@@ -30,5 +30,5 @@ const menuStyle = css`
   margin-top: 5.625rem;
   margin-left: -1rem;
   flex: 1;
-`
-export default SideBar
+`;
+export default SideBar;

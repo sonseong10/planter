@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+// import { useAuth } from "../../context/AuthContext";
 import { Message } from "../../service/message";
 import MessageCard from "./message-card";
 
@@ -7,6 +8,8 @@ type MessagesProps = {
   username: string;
   error: string;
   onUsernameClick: (message: Message) => void;
+  onDelete: (tweetId: string) => {};
+  onUpdate: any;
 };
 
 const Messages = ({
@@ -14,12 +17,18 @@ const Messages = ({
   error,
   messages,
   onUsernameClick,
+  onDelete,
+  onUpdate,
 }: MessagesProps) => {
+  // const { user, } = useAuth();
   return (
     <ul css={messageList}>
       {messages.map((message) => (
         <MessageCard
           key={message.uid}
+          onDelete={onDelete}
+          onUpdate={onUpdate}
+          owner={message.user.name === username}
           message={message}
           onUsernameClick={onUsernameClick}
         />

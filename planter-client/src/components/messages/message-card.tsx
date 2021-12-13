@@ -2,14 +2,29 @@ import { Message } from "../../service/message";
 import { css } from "@emotion/react";
 import palette from "../../lib/styles/constants/palette";
 import Avatar from "../ui/avatar";
+import parseDate from "../../util/date";
+import { useState } from "react";
+import EditMessageForm from "./EditMessageForm";
+import { resetButton } from "../../lib/styles/components/reset-button";
 
 type MessageCardProps = {
   message: Message;
   onUsernameClick: (message: Message) => void;
+  owner: any;
+  onDelete: (id: any) => {};
+  onUpdate: any;
 };
 
-const MessageCard = ({ message, onUsernameClick }: MessageCardProps) => {
+const MessageCard = ({
+  message,
+  onUsernameClick,
+  owner,
+  onDelete,
+  onUpdate,
+}: MessageCardProps) => {
   const { user, createdAt, text } = message;
+  const [editing, setEditing] = useState(false);
+  const onClose = () => setEditing(false);
 
   return (
     <li css={listItem}>
@@ -22,16 +37,30 @@ const MessageCard = ({ message, onUsernameClick }: MessageCardProps) => {
           <address onClick={() => onUsernameClick(message)}>
             <strong>{user.name}</strong>
             <span>@{user.nickname}</span>
-            <span>{createdAt}</span>
+            <span>{parseDate(createdAt)}</span>
           </address>
           <p>{text}</p>
+          {editing && (
+            <EditMessageForm
+              message={message}
+              onUpdate={onUpdate}
+              onClose={onClose}
+            />
+          )}
         </div>
       </section>
+      {owner && (
+        <div css={messageAction}>
+          <button onClick={() => onDelete(message.uid)}>x</button>
+          <button onClick={() => setEditing(true)}>✎</button>
+        </div>
+      )}
     </li>
   );
 };
 
 const listItem = css`
+  display: flex;
   border-bottom: 1px solid ${palette.border};
   padding: 12px 12px 0;
 `;
@@ -40,6 +69,7 @@ const messageCard = css`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  flex: 1;
 `;
 
 const header = css`
@@ -50,6 +80,7 @@ const header = css`
 `;
 
 const body = css`
+  flex: 1;
   address {
     font-style: normal;
 
@@ -67,6 +98,26 @@ const body = css`
 
     span {
       color: ${palette.text.secondary};
+    }
+  }
+`;
+
+const messageAction = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  button {
+    ${resetButton}
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    color: ${palette.text.secondary};
+    transition: color 300ms ease-in-out;
+    outline: none;
+
+    &:hover:enabled {
+      color: ${palette.brandTheme.dark};
     }
   }
 `;

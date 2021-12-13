@@ -66,7 +66,7 @@ export default class MessageService implements MessageCRUD {
     }
   }
 
-  async updateMessage(messageId: string, text: string): Promise<Message[]> {
+  async updateMessage(messageId: string, text: string): Promise<any> {
     const response = await fetch(`${this.baseURL}/${messageId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

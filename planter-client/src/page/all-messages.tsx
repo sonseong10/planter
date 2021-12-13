@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import MessageForm from "../components/messages/message-form";
 import Messages from "../components/messages/messages";
 import SectionHeader from "../components/ui/section-header";
+import { useAuth } from "../context/AuthContext";
 import MessageCRUD, { Message } from "../service/message";
 
 type AllMessagesProps = {
@@ -10,9 +11,10 @@ type AllMessagesProps = {
 };
 
 const AllMessages = ({ messageService }: AllMessagesProps) => {
-  const username = "";
+  // const { user } = useAuth();
+  const username = "anna";
   const history = useHistory();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<any>([]);
   const [error, setError] = useState<string>("");
 
   // TODO: CRUD 구현
@@ -28,10 +30,30 @@ const AllMessages = ({ messageService }: AllMessagesProps) => {
     setMessages((messages) => [message, ...messages]);
   };
 
-  const onUsernameClick = (message: Message): void =>
+  const onDelete = (tweetId: string) =>
+    messageService
+      .deleteMessage(tweetId)
+      .then(() =>
+        setMessages((messages) =>
+          messages.filter((message) => message.uid !== tweetId)
+        )
+      )
+      .catch((error) => setError(error.toString()));
+
+  const onUpdate = (tweetId: string, text: string) =>
+    messageService
+      .updateMessage(tweetId, text)
+      .then((updated) =>
+        setMessages((messages) =>
+          messages.map((item) => (item.id === updated.uid ? updated : item))
+        )
+      )
+      .catch((error) => error.toString());
+
+  const onUsernameClick = (message: Message) =>
     history.push(`/${message.user.name}`);
 
-  const onError = (error: any) => {
+  const onError = (error: string) => {
     setError(error.toString());
     setTimeout(() => {
       setError("");
@@ -44,9 +66,11 @@ const AllMessages = ({ messageService }: AllMessagesProps) => {
       <MessageForm
         messageService={messageService}
         onCreated={onCreated}
-        onError={error}
+        onError={onError}
       />
       <Messages
+        onDelete={onDelete}
+        onUpdate={onUpdate}
         username={username}
         messages={messages}
         onUsernameClick={onUsernameClick}

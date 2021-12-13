@@ -59,7 +59,6 @@ const mainStyle = css`
   ${media.xlarge} {
     margin-left: 5rem;
   }
-  padding-top: 3rem;
   padding-bottom: 3rem;
   ${media.small} {
     margin-left: 0;
