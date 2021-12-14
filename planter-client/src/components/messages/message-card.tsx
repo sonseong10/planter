@@ -37,7 +37,7 @@ const MessageCard = ({
           <address onClick={() => onUsernameClick(message)}>
             <strong>{user.name}</strong>
             <span>@{user.nickname}</span>
-            <span>{parseDate(createdAt)}</span>
+            <span css={timeStamp}>{parseDate(createdAt)}</span>
           </address>
           <p>{text}</p>
           {editing && (
@@ -89,7 +89,13 @@ const body = css`
       font-size: 14px;
       line-height: 20px;
       overflow-wrap: break-word;
+      cursor: pointer;
     }
+
+    &:hover {
+      text-decoration: underline;
+    }
+
     strong {
       margin-right: 4px;
       font-weight: 400;
@@ -100,6 +106,10 @@ const body = css`
       color: ${palette.text.secondary};
     }
   }
+`;
+
+const timeStamp = css`
+  margin-left: 4px;
 `;
 
 const messageAction = css`
