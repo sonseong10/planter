@@ -29,7 +29,7 @@ export const getAllMessageByUser = () =>
 export const getMessageById = () =>
   messages.find((message) => message.uid === uid);
 
-export const createMessage = (text, user) => {
+export const postMessage = (text, user) => {
   const message = {
     uid: Date.now().toString(),
     createdAt: new Date(),
@@ -39,7 +39,7 @@ export const createMessage = (text, user) => {
   return (messages = [message, ...messages]);
 };
 
-export const updateMessage = (uid, text) => {
+export const putMessage = (uid, text) => {
   const message = messages.find((message) => message.uid === uid);
   message ? (message.text = text) : undefined;
   return message;
