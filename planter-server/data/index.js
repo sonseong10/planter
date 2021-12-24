@@ -21,29 +21,35 @@ export let messages = [
   },
 ];
 
-export const getAllMessage = () => messages;
+export async function getAllMessage() {
+  return messages;
+}
 
-export const getAllMessageByUser = () =>
-  messages.filter((message) => message.user.name === username);
+export async function getAllMessageByUser() {
+  return messages.filter((message) => message.user.name === username);
+}
 
-export const getMessageById = () =>
-  messages.find((message) => message.uid === uid);
+export async function getMessageById() {
+  return messages.find((message) => message.uid === uid);
+}
 
-export const postMessage = (text, user) => {
+export async function postMessage(text, user) {
   const message = {
     uid: Date.now().toString(),
     createdAt: new Date(),
     text,
     user,
   };
-  return (messages = [message, ...messages]);
-};
+  messages = [message, ...messages];
+  return messages;
+}
 
-export const putMessage = (uid, text) => {
+export async function putMessage(uid, text) {
   const message = messages.find((message) => message.uid === uid);
   message ? (message.text = text) : undefined;
   return message;
-};
+}
 
-export const deleteMessage = (uid) =>
-  (messages = messages.filter((message) => message.uid !== uid));
+export async function deleteMessage(uid) {
+  return (messages = messages.filter((message) => message.uid !== uid));
+}
