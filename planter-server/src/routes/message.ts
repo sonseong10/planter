@@ -6,7 +6,7 @@ import {
   createMessage,
   updateMessage,
   removeMessage,
-} from "../controller/index";
+} from "../controllers/index";
 
 const router = express.Router();
 
