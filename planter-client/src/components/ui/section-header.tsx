@@ -1,34 +1,10 @@
 import { css } from "@emotion/react"
-import palette from "../../lib/styles/constants/palette"
-import { BiCrown } from "react-icons/bi"
+import palette from "../../lib/styles/constants/palette";
 
 type SectionHeaderProps = {
-  title: string
-  icon?: string
-}
-
-const SectionHeader = ({ title, icon }: SectionHeaderProps) => {
-  return (
-    <header css={sectionHeader}>
-      <h2>{title}</h2>
-      {icon && (
-        <button type="button" aria-label="Sorting messages">
-          {choseHeaderIcon(icon)}
-        </button>
-      )}
-    </header>
-  )
-}
-
-const choseHeaderIcon = (iconName: string) => {
-  switch (iconName) {
-    case "sorte":
-      return <BiCrown aria-hidden />
-
-    default:
-      throw new Error(`Unknow icon name: ${iconName}`)
-  }
-}
+  title: string;
+  icon?: string;
+};
 
 const sectionHeader = css`
   position: sticky;
@@ -70,6 +46,31 @@ const sectionHeader = css`
       pointer-events: none;
     }
   }
-`
+`;
+
+const SectionHeader = ({ title, icon }: SectionHeaderProps) => {
+  return (
+    <header css={sectionHeader}>
+      <h2>{title}</h2>
+      {icon && (
+        <button type="button" aria-label="Sorting messages">
+          {choseHeaderIcon(icon)}
+        </button>
+      )}
+    </header>
+  );
+};
+
+const choseHeaderIcon = (iconName: string) => {
+  switch (iconName) {
+    case "sorte":
+      return <></>;
+
+    default:
+      throw new Error(`Unknow icon name: ${iconName}`);
+  }
+};
+
+
 
 export default SectionHeader

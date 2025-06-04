@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import MessageForm from "../components/messages/message-form";
 import Messages from "../components/messages/messages";
 import SectionHeader from "../components/ui/section-header";
@@ -11,9 +10,7 @@ type AllMessagesProps = {
 };
 
 const AllMessages = ({ messageService }: AllMessagesProps) => {
-  // const { user } = useAuth();
   const username = "anna";
-  const history = useHistory();
   const [messages, setMessages] = useState<any>([]);
   const [error, setError] = useState<string>("");
 
@@ -27,14 +24,14 @@ const AllMessages = ({ messageService }: AllMessagesProps) => {
   }, [setMessages, messageService, username]);
 
   const onCreated = (message: Message) => {
-    setMessages((messages) => [message, ...messages]);
+    setMessages((messages: any) => [message, ...messages]);
   };
 
   const onDelete = (tweetId: string) =>
     messageService
       .deleteMessage(tweetId)
       .then(() =>
-        setMessages((messages) =>
+        setMessages((messages: any[]) =>
           messages.filter((message) => message.uid !== tweetId)
         )
       )
@@ -44,14 +41,11 @@ const AllMessages = ({ messageService }: AllMessagesProps) => {
     messageService
       .updateMessage(tweetId, text)
       .then((updated) =>
-        setMessages((messages) =>
+        setMessages((messages: any[]) =>
           messages.map((item) => (item.id === updated.uid ? updated : item))
         )
       )
       .catch((error) => error.toString());
-
-  const onUsernameClick = (message: Message) =>
-    history.push(`/${message.user.name}`);
 
   const onError = (error: string) => {
     setError(error.toString());
@@ -73,7 +67,9 @@ const AllMessages = ({ messageService }: AllMessagesProps) => {
         onUpdate={onUpdate}
         username={username}
         messages={messages}
-        onUsernameClick={onUsernameClick}
+        onUsernameClick={() => {
+          console.log("hi");
+        }}
         error={error}
       />
     </>
