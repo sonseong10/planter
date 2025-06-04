@@ -1,17 +1,22 @@
-import * as messageRepository from "../data/index.js";
+import { Request, Response, NextFunction } from "express";
+import * as messageRepository from "../data/index";
 
-export async function getMessages(req, res, next) {
+export async function getMessages(
+  req: Request,
+  res: Response,
+  _: NextFunction
+) {
   try {
     const username = req.query.username;
     let data;
 
     if (username) {
-      data = await messageRepository.getAllMessageByUser(username);
+      data = await messageRepository.getAllMessageByUser(username.toString());
     } else {
       data = await messageRepository.getAllMessage();
     }
 
-    console.log("username:", username);
+    // console.log("username:", username);
     res.status(200).json(data);
   } catch (err) {
     console.error(err);
@@ -21,7 +26,11 @@ export async function getMessages(req, res, next) {
   }
 }
 
-export async function getMessage(req, res, next) {
+export async function getMessage(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const uid = req.params.uid;
     const message = await messageRepository.getMessageById(uid);
@@ -37,7 +46,11 @@ export async function getMessage(req, res, next) {
   }
 }
 
-export async function createMessage(req, res, next) {
+export async function createMessage(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const { text, user } = req.body;
     const message = await messageRepository.postMessage(text, user);
@@ -48,7 +61,11 @@ export async function createMessage(req, res, next) {
   }
 }
 
-export async function updateMessage(req, res, next) {
+export async function updateMessage(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const uid = req.params.uid;
     const text = req.body.text;
@@ -66,7 +83,11 @@ export async function updateMessage(req, res, next) {
   }
 }
 
-export async function removeMessage(req, res, next) {
+export async function removeMessage(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
   try {
     const uid = req.params.uid;
     await messageRepository.deleteMessage(uid);

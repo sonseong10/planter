@@ -25,18 +25,25 @@ export async function getAllMessage() {
   return messages;
 }
 
-export async function getAllMessageByUser() {
+export async function getAllMessageByUser(username: string) {
   return messages.filter((message) => message.user.name === username);
 }
 
-export async function getMessageById() {
+export async function getMessageById(uid: string) {
   return messages.find((message) => message.uid === uid);
 }
 
-export async function postMessage(text, user) {
-  const message = {
+export async function postMessage(
+  text: string,
+  user: {
+    name: string;
+    nickname: string;
+    url: string;
+  }
+) {
+  const message: (typeof messages)[0] = {
     uid: Date.now().toString(),
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
     text,
     user,
   };
@@ -44,12 +51,12 @@ export async function postMessage(text, user) {
   return messages;
 }
 
-export async function putMessage(uid, text) {
+export async function putMessage(uid: string, text: string) {
   const message = messages.find((message) => message.uid === uid);
   message ? (message.text = text) : undefined;
   return message;
 }
 
-export async function deleteMessage(uid) {
+export async function deleteMessage(uid: string) {
   return (messages = messages.filter((message) => message.uid !== uid));
 }

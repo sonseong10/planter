@@ -2,11 +2,13 @@
   "name": "planter",
   "version": "1.0.0",
   "description": "fast social network service",
-  "main": "app.js",
-  "type": "module",
+  "main": "src/app.ts",
+  "target": "ESNext",
+  "module": "CommonJS",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app"
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node dist/app.ts"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,12 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.2",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.15.29",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
