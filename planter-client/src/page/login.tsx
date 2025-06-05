@@ -1,120 +1,138 @@
-import React, { useState } from "react";
-// import Banner from "../components/Banner";
+import { css, Theme } from "@emotion/react";
+import { FormEvent } from "react";
 
-const Login = ({ onSignUp, onLogin }) => {
-  const [signup, setSignup] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [url, setURL] = useState("");
-  const [text, setText] = useState("");
-  const [isAlert, setIsAlert] = useState(false);
+const container = css({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  display: "block",
+  padding: "40px",
+  width: "300px",
+  background: "#fff",
+  borderRadius: "12px",
+  transform: "translate(-50%,-50%)",
+});
 
-  const onSubmit = (event) => {
+const input = css({
+  display: "block",
+  marginBottom: "8px",
+  padding: "4px 12px",
+  height: "48px",
+  width: "100%",
+  border: "1px solid #c8c8c8",
+  borderRadius: "8px",
+  fontSize: "14px",
+  boxSizing: "border-box",
+});
+
+const button = css({
+  display: "block",
+  marginBottom: "16px",
+  padding: "8px 10px",
+  width: "100%",
+  height: "48px",
+  borderRadius: "8px",
+  color: "#fff",
+  fontSize: "16px",
+  fontWeight: "700",
+  cursor: "pointer",
+  transition: " opacity 0.2s ease-in-out",
+  [`&:hover`]: {
+    opacity: "0.6",
+  },
+});
+
+const logo = (theme: Theme) =>
+  css`
+    text-align: center;
+    background: linear-gradient(
+      to right,
+      ${theme.colors.brand} 0%,
+      #53ed93 100%
+    );
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+    font-size: 42px;
+  `;
+
+function Login(): JSX.Element {
+  const onLogin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (signup) {
-      onSignUp(username, password, name, email, url).catch(setError);
-    } else {
-      onLogin(username, password).catch(setError);
-    }
+    const formData = new FormData(event.currentTarget);
+    const name = formData.get("email");
+    const password = formData.get("password");
+    console.log(name, password);
   };
-
-  const setError = (error) => {
-    setText(error.toString());
-    setIsAlert(true);
-  };
-
-  const onChange = (event) => {
-    const {
-      target: { name, value, checked },
-    } = event;
-    switch (name) {
-      case "username":
-        return setUsername(value);
-      case "password":
-        return setPassword(value);
-      case "name":
-        return setName(value);
-      case "email":
-        return setEmail(value);
-      case "url":
-        return setURL(value);
-      case "signup":
-        return setSignup(checked);
-      default:
-    }
-  };
-
   return (
     <>
-      {/* <Banner text={text} isAlert={isAlert} /> */}
-      <form className="auth-form" onSubmit={onSubmit}>
-        <input
-          name="username"
-          type="text"
-          placeholder="Id"
-          value={username}
-          onChange={onChange}
-          className="form-input"
-          required
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          className="form-input"
-          onChange={onChange}
-        />
-        {signup && (
-          <input
-            name="name"
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={onChange}
-            className="form-input"
-            required
-          />
-        )}
-        {signup && (
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={onChange}
-            className="form-input"
-            required
-          />
-        )}
-        {signup && (
-          <input
-            name="url"
-            type="url"
-            placeholder="Profile Image URL"
-            value={url}
-            onChange={onChange}
-            className="form-input"
-          />
-        )}
-        <div className="form-signup">
-          <input
-            name="signup"
-            id="signup"
-            type="checkbox"
-            onChange={onChange}
-            checked={signup}
-          />
-          <label htmlFor="signup"> Create a new account?</label>
+      <div
+        css={css`
+          background-color: #fff;
+          height: 100dvh;
+        `}
+      >
+        <div css={container}>
+          <h1 css={logo}>{"Planter".toUpperCase()}</h1>
+          <form className="auth-form" onSubmit={onLogin}>
+            <input
+              name="email"
+              type="email"
+              placeholder="test@test.com"
+              css={input}
+              required
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="비밀번호"
+              css={input}
+              required
+            />
+            <button
+              type="submit"
+              css={css`
+                ${button}
+                border: 0;
+                background: linear-gradient(45deg, #61f21d 0%, #53ed93 100%);
+              `}
+            >
+              로그인
+            </button>
+            <div
+              css={css`
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 10px 0;
+                /* border-bottom: 1px solid #8c8c8c; */
+                box-sizing: border-box;
+
+                button {
+                  border: none;
+                  background-color: transparent;
+                  color: #8c8c8c;
+                  cursor: pointer;
+                  transition: opacity 0.2s ease-in-out;
+
+                  &:hover {
+                    opacity: 0.6;
+                  }
+                }
+              `}
+            >
+              <button type="button">회원가입</button>
+              <button type="button">아이디찾기</button>
+              <button type="button">비밀번호찾기</button>
+            </div>
+          </form>
+
+          <div></div>
         </div>
-        <button className="form-btn auth-form-btn" type="submit">
-          {signup ? "Sign Up" : "Sign In"}
-        </button>
-      </form>
+      </div>
     </>
   );
-};
+}
 
 export default Login;
