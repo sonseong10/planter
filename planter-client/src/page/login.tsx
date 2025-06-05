@@ -1,5 +1,6 @@
 import { css, Theme } from "@emotion/react";
 import { FormEvent } from "react";
+import axios from "axios";
 
 const container = css({
   position: "absolute",
@@ -63,12 +64,24 @@ function Login(): JSX.Element {
     const name = formData.get("email");
     const password = formData.get("password");
     console.log(name, password);
+    const params = {
+      email: "name",
+      password: "password",
+    };
+
+    axios
+      .post("http://localhost:8080/api/auth/login", params, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => console.log(res));
   };
   return (
     <>
       <div
         css={css`
-          background-color: #fff;
+          background-color: #f4f6f8;
           height: 100dvh;
         `}
       >
