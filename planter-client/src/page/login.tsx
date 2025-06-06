@@ -65,8 +65,8 @@ function Login(): JSX.Element {
     const password = formData.get("password");
     console.log(name, password);
     const params = {
-      email: "name",
-      password: "password",
+      email: name,
+      password: password,
     };
 
     axios

@@ -10,8 +10,6 @@ export const createUser = async (
   hashedPassword: string,
   name: string
 ) => {
-  console.log(email, hashedPassword, name);
-
   await db.query("INSERT INTO users (email, password, name) VALUES (?, ?, ?)", [
     email,
     hashedPassword,
