@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MessageForm from "../components/messages/message-form";
 import Messages from "../components/messages/messages";
 import SectionHeader from "../components/ui/section-header";
-import { useAuth } from "../context/AuthContext";
 import MessageCRUD, { Message } from "../service/message";
 
 type AllMessagesProps = {
@@ -13,8 +12,6 @@ const AllMessages = ({ messageService }: AllMessagesProps) => {
   const username = "anna";
   const [messages, setMessages] = useState<any>([]);
   const [error, setError] = useState<string>("");
-
-  // TODO: CRUD 구현
 
   useEffect(() => {
     messageService

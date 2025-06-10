@@ -2,7 +2,7 @@ import Layout from "./components/layout";
 import SideBar from "./components/sidebar/side-bar";
 import TabletBar from "./components/sidebar/tablet-bar";
 import { Routes, Route } from "react-router-dom";
-import AllMessages from "./page/all-messages";
+import AllMessages from "./pages/all-messages";
 import MessageCRUD from "./service/message";
 
 export type AppProps = {
