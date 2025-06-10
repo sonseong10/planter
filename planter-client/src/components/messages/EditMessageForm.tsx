@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import React, { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { resetButton } from "../../lib/styles/components/reset-button";
 import palette from "../../lib/styles/constants/palette";
 import { Message } from "../../service/message";
@@ -17,14 +17,14 @@ const EditMessageForm = ({
 }: EditMessageFormProps) => {
   const [text, setText] = useState(message.text);
 
-  const onSubmit = async (event) => {
+  const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     onUpdate(message.uid, text);
     onClose();
   };
 
-  const onChange = (event) => {
-    setText(event.target.value);
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setText(event.currentTarget.value);
   };
 
   return (

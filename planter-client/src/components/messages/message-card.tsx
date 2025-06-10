@@ -2,7 +2,7 @@ import { Message } from "../../service/message";
 import { css } from "@emotion/react";
 import palette from "../../lib/styles/constants/palette";
 import Avatar from "../ui/avatar";
-import parseDate from "../../util/date";
+import parseDate from "../../utils/date";
 import { useState } from "react";
 import EditMessageForm from "./EditMessageForm";
 import { resetButton } from "../../lib/styles/components/reset-button";

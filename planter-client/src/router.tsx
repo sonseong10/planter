@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import MessageService from "./service/message";
-import Login from "./page/login/login";
+import Login from "./pages/login/login";
 
 export const router = (messageService: MessageService) =>
   createBrowserRouter([
