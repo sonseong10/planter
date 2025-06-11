@@ -36,7 +36,5 @@ const options = {
 const specs = swaggerJsdoc(options);
 
 export const setupSwagger = (app: Express) => {
-  console.log("das");
-
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 };

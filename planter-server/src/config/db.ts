@@ -14,4 +14,15 @@ const db = mysql.createPool({
   queueLimit: 0,
 });
 
+(async () => {
+  try {
+    const connection = await db.getConnection();
+    await connection.ping();
+    console.log("MySQL 연결됨");
+    connection.release();
+  } catch (err) {
+    console.error("MySQL 연결실패", err);
+  }
+})();
+
 export default db;
