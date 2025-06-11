@@ -6,7 +6,12 @@
  */
 
 import { Router } from "express";
-import { register, login, userInfo } from "../controllers/authController";
+import {
+  register,
+  login,
+  userInfo,
+  logout,
+} from "../controllers/authController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
 const router = Router();
@@ -65,6 +70,18 @@ router.post("/register", register);
  *         description: 로그인 성공
  */
 router.post("/login", login);
+
+/**
+ * @swagger
+ * /api/logout:
+ *   post:
+ *     summary: 로그아웃
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: 로그아웃 성공 (refreshToken 삭제 및 쿠키 제거)
+ */
+router.post("/logout", logout);
 
 /**
  * @swagger
